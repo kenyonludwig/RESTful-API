@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GIF search</title>
+    </head>
+    <body>
+        <h1>Let's search based on user input!!</h1>
+        Search term: <input type="text" id="searchTerm" value="Cats" />
+        <button onclick="myFunction()">Search!</button>
+        <div id="response-container"></div>
+        <script>
+            //Create a function called `myFunction()`
+function myFunction() {
+
+//Create a variable that will use `document.querySelector()` to target the `id` of the input
+//Use `.value` to capture the value of the input and store it in the variable
+var searchTerm = doument.querySelector('searchTerm').value;
+fetch (
+    'https://api.giphy.com/v1/gifs/search?q=' +
+      searchTerm + 'ptRmQvo0nOL7SWpzgUMMsvm15TcmgbpL'
+)
+.then(function(response) {
+    return response.json();
+})
+.then(function(response) {
+    console.log(response.data[0]);
+    //Create a variable that will select the <div> where the GIF will be displayed
+    var resonseContainerEl = document.querySelector('#response-container')
+    //Empty out the <div> before we append a GIF to it
+    var responseContainerEl = document.querySelector('response-container')
+    responseContainerEl.innerHTML = '';
+    
+    var gifImg = document.createElement('img');
+    givImg.setAttribute('src', response.data[0].images.fixed_height.url);
+    //Append 'gifImg' to the <div>
+    responseContainerEl. appendChild(gifImg);
+})
+}
+        </script>
+    </body>
+</html>
